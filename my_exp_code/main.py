@@ -25,14 +25,15 @@ def main():
 
     logging.basicConfig(level=logging.INFO)
 
-    # redirect stdout and stderr to a log file - if provided (useful for orion on cluster)
+    # will log to a file if provided (useful for orion on cluster)
     if args.log is not None:
-        with open(args.log, 'w') as out:
-            with redirect_stdout(out):
-                with redirect_stderr(out):
-                    run(args)
-    else:
-        run(args)
+        handler = logging.handlers.WatchedFileHandler(args.log)
+        formatter = logging.Formatter(logging.BASIC_FORMAT)
+        handler.setFormatter(formatter)
+        root = logging.getLogger()
+        root.setLevel(logging.INFO)
+        root.addHandler(handler)
+    run(args)
 
 
 def do_training():
