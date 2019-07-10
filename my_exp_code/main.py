@@ -15,7 +15,8 @@ logger = logging.getLogger(__name__)
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--log', help='log to this file (otherwise log to screen)')
-    parser.add_argument('--config', help='config file with hyper parameters - in yaml format')
+    parser.add_argument('--config', help='config file with hyper parameters - in yaml format',
+                        required=True)
     parser.add_argument('--hyper_param1', default='1')
     parser.add_argument('--hyper_param2', default='1')
     parser.add_argument('--saved_model', default='model.pt')
