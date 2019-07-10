@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH --array=2
 #SBATCH --job-name=orion_test
-#SBATCH --output=out_%a.log
-#SBATCH --error=err_%a.log
+#SBATCH --output=other_logs/out_%a.log
+#SBATCH --error=other_logs/err_%a.log
 #SBATCH --account=rpp-bengioy
 #SBATCH --gres=gpu:1
 #SBATCH --time=00:05:00
