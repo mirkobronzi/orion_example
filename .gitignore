@@ -1,3 +1,4 @@
 .idea
 *.pyc
 mlruns
+my_working_dir

@@ -44,7 +44,7 @@ def eval_on_dev():
 
 
 def save_model():
-    # your model is safe..
+    # your model is safe with us..
     pass
 
 
@@ -62,6 +62,8 @@ def run(args):
     not_improving_since = 0
     best_dev_metric = None
     for e in range(args.max_epoch):
+
+        # change this part to do the real training / evaluation on dev.
         loss = do_training()
         dev_metric = eval_on_dev()
 
@@ -81,6 +83,10 @@ def run(args):
         if not_improving_since >= patience:
             logger.info('done! best dev metric is {}'.format(best_dev_metric))
             break
+
+    # useful so was can easily sort models w.r.t. the best dev evaluation
+    log_metric("best_dev_metric", best_dev_metric)
+
     report_results([dict(
         name='dev_metric',
         type='objective',
