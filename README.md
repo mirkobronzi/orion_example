@@ -32,3 +32,25 @@ Once done, you can check the logs or check on mlflow the various results.
 
 For mlflow, run `mlflow ui` in the folder where you run the experiment.
 Then use your browser to explore the results.
+
+## Note on logs
+
+If no `--log` option is passed (see `main.py`), the logging will happen as usual.
+
+If the `--log` option is passed (see `main.py`), then the root logger is set to print to 
+that file.
+
+This is convenient when running with orion, cause we can set that file to be
+in the folder that orion is created. (so, the log will be places in the exp. folder).
+
+(this is the behaviour in the example `example_orion_on_cluster_with_slurm`)
+
+Note that any other log (e.g., print statement) will still go on screen.
+In SLURM, that means they will go in the SLURM main log file.
+
+If you see the examaple `example_orion_on_cluster_with_slurm/to_submit.sh`, these 
+log files are redirected to a folder called `other_logs`.
+Most probably, these log files will not contain any useful logging that is not
+already in the log file in the exp folder.
+
+(because, HOPEFULLY, your code is using logging() to log, and not print() ...)
