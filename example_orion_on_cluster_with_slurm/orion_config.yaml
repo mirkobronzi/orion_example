@@ -1,0 +1,4 @@
+max_trials: 4
+working_dir: my_working_dir
+algorithms: random
+name: my_exp
