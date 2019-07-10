@@ -7,6 +7,7 @@ from contextlib import redirect_stdout, redirect_stderr
 
 from mlflow import log_metric, log_param
 from orion.client import report_results
+from yaml import load
 
 logger = logging.getLogger(__name__)
 
@@ -14,6 +15,7 @@ logger = logging.getLogger(__name__)
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--log', help='log to this file (otherwise log to screen)')
+    parser.add_argument('--config', help='config file with hyper parameters - in yaml format')
     parser.add_argument('--hyper_param1', default='1')
     parser.add_argument('--hyper_param2', default='1')
     parser.add_argument('--saved_model', default='model.pt')
@@ -46,9 +48,14 @@ def save_model():
 
 
 def run(args):
+    with open(args.config, 'r') as stream:
+        hyper_params = load(stream)
+    hp1 = hyper_params['hyper_param1']
+    log_param("hyper_param1", hp1)
+    hp2 = hyper_params['hyper_param2']
+    log_param("hyper_param2", hp2)
 
-    log_param("hyper_param1", args.hyper_param1)
-    log_param("hyper_param2", args.hyper_param2)
+    logger.info('hp1: {} / hp2: {}'.format(hp1, hp2))
 
     patience = 10
     not_improving_since = 0
@@ -76,7 +83,8 @@ def run(args):
     report_results([dict(
         name='dev_metric',
         type='objective',
-        value=best_dev_metric)])
+        # note the minus - cause orion is always trying to minimize (cit. from the guide)
+        value=-best_dev_metric)])
 
 
 if __name__ == '__main__':
