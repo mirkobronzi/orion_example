@@ -1,0 +1,3 @@
+hyper_param1: 'orion~uniform(1,10,discrete=True)'
+hyper_param2: 'orion~uniform(1,10,discrete=True)'
+max_epoch: 'orion~fidelity()'

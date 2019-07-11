@@ -33,6 +33,23 @@ Once done, you can check the logs or check on mlflow the various results.
 For mlflow, run `mlflow ui` in the folder where you run the experiment.
 Then use your browser to explore the results.
 
+## Note on Orion
+
+Interesting things to remember:
+
+* Orion will always minimize the objective function. So, if you are maximizing
+(e.g., f1, accuracy, ..) just pass it with a - symbol before, e.g.,
+
+        report_results([dict(
+            name='dev_metric',
+            type='objective',
+            # note the minus
+            value=-best_dev_metric)])
+            
+* if the experiment is already in the database, you will see the Orion shell.
+You can either change the exp. name, or use a different db file.
+(or, if you know what you are doing, use the shell to merge your experiments) 
+
 ## Note on logs
 
 If no `--log` option is passed (see `main.py`), the logging will happen as usual.
