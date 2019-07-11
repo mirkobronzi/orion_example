@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --array=2
+#SBATCH --array=1-2
 #SBATCH --job-name=orion_test
 #SBATCH --output=other_logs/out_%a.log
 #SBATCH --error=other_logs/err_%a.log
