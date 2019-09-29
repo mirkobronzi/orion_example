@@ -52,12 +52,9 @@ def save_model():
 def run(args):
     with open(args.config, 'r') as stream:
         hyper_params = load(stream)
-    hp1 = hyper_params['hyper_param1']
-    log_param("hyper_param1", hp1)
-    hp2 = hyper_params['hyper_param2']
-    log_param("hyper_param2", hp2)
-
-    logger.info('hp1: {} / hp2: {}'.format(hp1, hp2))
+    for k, v in hyper_params:
+        log_param(k ,v)
+        logger.info('hp "{}" => "{}"'.format(k, v))
 
     patience = 10
     not_improving_since = 0
